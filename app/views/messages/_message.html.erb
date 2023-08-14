@@ -1,0 +1,12 @@
+<div id="message-<%= message.id %>" class="d-flex msg-container-<%= message.user.id %>">
+  <div class="chat-message msg-<%= message.user.id %>">
+    <p class="user"></p>
+    <strong><%= message.user.username %></strong>
+    <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+    <% if message.content.match?(/http/) %>
+      <p><%= message.content.gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %></p>
+    <% else %>
+      <p><%= message.content %></p>
+    <% end %>
+  </div>
+</div>

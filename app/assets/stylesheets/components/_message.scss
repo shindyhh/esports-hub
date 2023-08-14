@@ -1,0 +1,21 @@
+.chat-message {
+  background-color: #2b927f;
+  max-width: 70%;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.97;
+
+  i {
+    opacity: 0.5;
+  }
+}
+
+.hovering{
+  color: #2b3438;
+  font-weight: 600;
+}
+
+.hovering:hover{
+  color: #f7f7f7;
+}

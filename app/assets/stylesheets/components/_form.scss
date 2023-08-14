@@ -1,0 +1,49 @@
+.form-style{
+
+  padding: 9px 9px;
+  border:solid 1px #0ef6be;
+
+  .content-height{
+    height: 150px;
+  }
+
+    textarea{
+      background-color: #2b3438;
+    }
+
+    textarea:focus{
+      color: #2b3438, !important;
+    }
+
+  .form-label{
+    color: #0ef6be;
+
+  }
+
+  // background-color: #1e2528 !important;
+  // color: #f7f7f7;
+
+ input{
+
+    color: #f7f7f7;
+
+
+  }
+     .form-check-label{
+      color: #0ef6be;
+    }
+  select{
+    background-color: #2b3438;
+    color: #f7f7f7;
+  }
+
+  .upload-media {
+    padding: 4px 6px;
+    cursor: pointer;
+    font-weight: 400;
+    border-radius: 2px;
+    &:hover {
+      color: #f7f7f7 !important;
+    }
+  }
+  }

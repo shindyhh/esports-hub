@@ -1,0 +1,37 @@
+
+<div class="container chatroom" data-controller="chatroom-subscription"
+  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
+  <div class="chatroom_title">
+    <% if @chatroom.user == current_user %>
+    <div class="d-flex header mt-5" style="align-items: center; background-color: #0ef6be; border-radius: 5px 5px 0px 0px; padding: 5px;">
+      <%= image_tag @chatroom.user_two.avatar_thumbnail, class: "avatar mx-2" %>
+      <%= link_to @chatroom.user_two.username, user_path(@chatroom.user_two), method: :get, class: "d-inline-flex hovering" %>
+    </div>
+    <% else %>
+     <div class="d-flex header mt-5" style="align-items: center; background-color: #0ef6be; border-radius: 5px 5px 0px 0px; padding: 5px; color: #2b3438; font-weight: 600">
+      <%= image_tag @chatroom.user.avatar_thumbnail, class: "avatar mx-2" %>
+      <%= link_to @chatroom.user.username, user_path(@chatroom.user), method: :get, class: "d-inline-flex hovering" %>
+     </div>
+    <% end %>
+  </div>
+  <div class="chat_box pr-2">
+    <div class="messages" data-chatroom-subscription-target="messages">
+      <% @chatroom.messages.each do |message| %>
+        <%= render 'messages/message', message: message %>
+      <% end %>
+    </div>
+  </div>
+      <%= simple_form_for [@chatroom, @message],
+      remote: true,
+      html: {data: {action: "ajax:success->chatroom-subscription#resetForm"}} do |f|
+      %>
+    <div class="d-flex ">
+      <div class="w-100 border-0">
+        <%= f.input :content, label: false, placeholder: "Say something to ##{@chatroom.user == current_user ? @chatroom.user_two.username : @chatroom.user.username}" %>
+      </div>
+        <div class="chat_button">
+          <%= f.submit "Send", class: "chat_button btn" %>
+        <% end %>
+      </div>
+    </div>
+</div>

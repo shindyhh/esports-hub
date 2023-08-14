@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="post">
+
+    <div class=" d-flex user-post-info my-4 align-items-center">
+      <% if @post.user.avatar.attached? %>
+        <%= cl_image_tag @post.user.avatar.key, class: "post-avatar" %>
+      <% else %>
+        <%= image_tag "placeholder.png", class: "post-avatar" %>
+      <% end %>
+      <div class="mx-5 d-flex">
+      <div>
+        <h1 ><%= link_to @post.user.username, user_path(@post.user), method: :get %></h1>
+
+       <p style="color:rgba(230, 230, 230, 0.7)">Published <%= time_ago_in_words(@post.created_at) %> ago</p>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+       <div class="mx-2">
+      <%= @likes %>
+    </div>
+
+  <% if user_signed_in? %>
+    <% if @post.liked?(current_user) %>
+      <% @like = @post.liked?(current_user) %>
+      <%= link_to like_path(@like), method: :delete, remote: true do %>
+      <i class="fas fa-heart btn-dislike"></i>
+      <% end %>
+    <% else %>
+      <%= link_to  post_likes_path(@post), method: :post, remote: true  do%>
+         <i class="far fa-heart btn-like"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+      </div>
+      </div>
+
+        <div>
+          <%= link_to 'Return', posts_path, class: "mx-5 btn btn-return" %>
+        </div>
+  </div>
+
+  <div class="post-body d-flex ">
+    <div>
+      <p style="font-size: 30px;"><%= @post.content %></p>
+
+      <% if @post.photo.attached? %>
+         <div class="p-5" style="border-radius:20px; width:800px; height: 400px; background-image: url(<%= cl_image_path @post.photo.key %>); background-size: cover; background-repeat: no-repeat;" >
+        </div>
+      <% end %>
+
+      <% if @post.video.attached? %>
+        <div class= "video p-0 m-0" style= "background-size: cover; background-repeat: no-repeat; border-radius: 20px; overflow: hidden;">
+         <%= cl_video_tag @post.video.key, cloudinary_resource_type: 'raw', loop: true, controls: true, muted: true, transformation: [{ width:800, height:400, crop:"fill" }, {radius:20}] %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if policy(@post).destroy? %>
+        <%= link_to post_path(@post), method: 'delete', data: { confirm: 'delete post?' }, class: "mx-5 btn btn-delete" do %>
+         <p class="mb-0"> <i class="fas fa-trash"></i>delete post?</p>
+         <% end %>
+      <%end%>
+
+  </div>
+</div>
+
+
+
+
+
+
+  <div class="comment-section container">
+
+  <div class="form-style">
+    <%= simple_form_for [@post, @comment], remote: true do |f|  %>
+      <%= f.input :content, label: "leave a comment", input_html: { autocomplete: "off" }  %>
+      <%= f.submit class: 'btn post-btn'%>
+    <%end%>
+  </div>
+
+    <% @comments.each do |comment|%>
+      <div class="card-feed p-4 my-3">
+        <div class="d-flex mb-4">
+          <% if comment.user.avatar.attached? %>
+            <%= cl_image_tag comment.user.avatar.key, class: "comment-avatar" %>
+          <% else %>
+            <%= image_tag "placeholder.png", class: "comment-avatar" %>
+          <% end %>
+          <div>
+            <div class="user-comment-name">
+              <%= link_to comment.user.username, user_path(comment.user), method: :get %>
+            </div>
+            <p style="color:rgba(230, 230, 230, 0.7)">Published at <%= time_ago_in_words(comment.created_at) %></p>
+          </div>
+        </div>
+      <%= comment.content %>
+      </div>
+    <% end %>
+  </div>
+</div>

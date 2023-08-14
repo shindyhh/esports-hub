@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eSports hub</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <style>
+      <%= ".msg-#{current_user&.id}" %> {
+        background-color: #c3c3c3;
+        text-align: right;
+      }
+      <%= ".msg-container-#{current_user&.id}" %> {
+        justify-content: flex-end
+      }
+      .chat_button:not(:disabled), .chat_button{
+        cursor: pointer;
+        background-color: #1A5B4F;
+        border: solid 1px #1a5b4f;
+        color: white;
+    }
+    </style>
+  </head>
+
+  <body>
+    <%= render 'shared/navbar' %>
+    <%= render 'shared/flashes' %>
+
+    <%= yield %>
+
+  </body>
+</html>

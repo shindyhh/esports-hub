@@ -1,0 +1,28 @@
+a{
+  text-decoration: none;
+  color: #f7f7f7;
+
+ }
+ a:hover{
+  color: #0ef6be;
+ }
+.user-post-info{
+}
+
+.post{
+  display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.post-body{
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.user-comment-name{
+  a{
+    font-size: 20px;
+  }
+}

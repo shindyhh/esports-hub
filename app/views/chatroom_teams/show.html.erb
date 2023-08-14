@@ -1,0 +1,29 @@
+
+<div class="container chatroom" data-controller="chatroom-subscription"
+  data-chatroom-subscription-chatroom-id-value="<%= @chatroom_team.id %>">
+  <div class="chatroom_title" >
+      <div class="d-flex header mt-5" style="align-items: center; background-color: #0ef6be; border-radius: 5px 5px 0px 0px; padding: 5px; color: #2b3438; font-weight: 600">
+        <%= link_to @chatroom_team.name + " - Main Chatroom", team_path(@chatroom_team.id), method: :get, class: "hovering" %>
+    </div>
+  </div>
+  <div class="chat_box pr-2">
+    <div class="messages" data-chatroom-subscription-target="messages">
+      <% @chatroom_team.message_teams.each do |message| %>
+        <%= render 'messages/message', message: message %>
+      <% end %>
+    </div>
+  </div>
+      <%= simple_form_for [@chatroom_team, @message_team],
+      remote: true,
+      html: {data: {action: "ajax:success->chatroom-team-subscription#resetForm"}} do |f|
+      %>
+    <div class="d-flex">
+      <div class="w-100 border-0">
+        <%= f.input :content, label: false, placeholder: "Say something to ##{@chatroom_team.name}" %>
+      </div>
+        <div class="chat_button">
+          <%= f.submit "Send", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+</div>

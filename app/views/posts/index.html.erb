@@ -1,0 +1,170 @@
+
+<div class="d-flex justify-content-between mt-4 mx-5">
+  <div class="user-infos mt-5">
+    <div class="username-section d-flex flex-column align-items-center ">
+      <div class="position-relative mt-5" >
+        <% if current_user.avatar.attached? %>
+          <%= cl_image_tag current_user.avatar.key, class: " feed-avatar", style:"background-color: #0ef6be" %>
+        <% else %>
+          <%= image_tag "placeholder.png", class: " feed-avatar", style:"background-color: #0ef6be" %>
+        <% end %>
+      </div>
+
+      <h3 class="mt-4"><i class="fas fa-user-circle"></i> <%= current_user.username  %></h3>
+     </div>
+
+    <div class="container  profile-card">
+      <div class="row p-2 mx-auto">
+        <% if current_user.teams.empty? %>
+          <p style="oppacity= 50%">Looking for a team <i class="fas fa-search"></i></p>
+        <% else %>
+          <div class="d-flex justify-content-center">
+          <p style="oppacity= 50%"> <%= current_user.teams.first.title %></p>
+          </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="d-flex justify-content-center padding-border">
+          <div class="col-6 "><p class="px-1 pt-1">Followers <%= current_user.followers.count %></p></div>
+          <div class="col-6"><p class="px-1 pt-1"> Following <%= current_user.following.count %></p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container team-info follows-list mt-5 px-0">
+    <div class="title-follow  px-4">
+      <h3 class="mt-0"><i class="fas fa-trophy"></i>  Team </h3>
+    </div>
+      <% if current_user.teams.empty? %>
+         <div>
+         <h4 class="p-4" >Not in a team yet</h4>
+         <div class="d-flex justify-content-center">
+          <%= link_to "Find a Team", new_team_path, class: " btn-find" %>
+         </div>
+        </div>
+      <% else %>
+
+        <% current_user.teams.each do |team| %>
+               <div class="d-flex justify-content-center mt-4">
+          <%= link_to "#{team.title}", team_path(team), class: "text-center h4"  %>
+                </div>
+        <% end %>
+      <% end %>
+       <% unless current_user.teams.blank? %>
+        <div>
+          <div class="d-flex justify-content-center member-title"><p>Members</p></div>
+         <ul>
+        <% current_user.teams.first.memberships.each do |member| %>
+          <%= link_to user_path( member.user) do %>
+              <li class="follow-item"><i class="far fa-user px-2"></i> <%=  member.user.username %></li>
+          <% end %>
+        <% end %>
+        </ul>
+
+        </div>
+        <% end %>
+      </div>
+  </div>
+
+
+
+  <div class="feed-size">
+    <div class="form-style width-60 mb-3 mx-auto">
+      <%= simple_form_for @post, remote: true do |f|  %>
+        <%= f.input :content, :input_html => {class: "content-height"} %>
+        <div class=" d-flex justify-content-between">
+        <div >
+        <%= f.input :tag_list, collection: Post::TAGS,label:false, selected: 1  %>
+
+        <div class='d-flex'>
+
+     <%= f.input :photo, input_html: { class: 'd-none'}, label_html: { class: 'upload-media'}, label: '<i class="fas fa-image"></i> Add photo'.html_safe  %>
+            <%= f.input :video, input_html: { class: 'd-none'}, label_html: { class: 'upload-media'}, label: '<i class="fas fa-film"></i> Add media'.html_safe , cloudinary_resource_type: 'raw' %>
+            </div>
+        </div>
+        <div class="d-flex align-items-end mb-4">
+        <%= f.submit  class: 'btn post-btn'%>
+        </div>
+      <%end%>
+      </div>
+    </div>
+
+  <div class="container width-60 padding-feed">
+    <% @posts.each do |post| %>
+      <%= link_to post_path(post), class:"border-media", style:"color: black; text-decoration:none;" do  %>
+        <div class='w-100' style="width: 18rem;">
+          <div class='card-feed p-4 mb-2 d-flex flex-column align-items-center'>
+            <div class='user-info'>
+              <div class='d-flex'>
+                <% if post.user.avatar.attached? %>
+                  <%= cl_image_tag post.user.avatar.key, class: "avatar mx-3" %>
+                <% else %>
+                  <%= image_tag "placeholder.png", class: "avatar mx-3" %>
+                <% end %>
+
+                <h3><%= post.user.username%></h3>
+              </div>
+            </div>
+            <p style="font-size: 15px; color:rgba(230, 230, 230, 0.7);align-self: flex-start;">Published <%= time_ago_in_words(post.created_at) %> ago</p>
+              <div class="p-4">
+                <%=post.content%>
+              </div>
+
+            <% if post.photo.attached? %>
+              <div class="p-5" style="width:500px; height: 280px; background-image: url(<%= cl_image_path post.photo.key %>); background-size: cover; background-repeat: no-repeat;" >
+              </div>
+            <% end %>
+            <% if post.video.attached? %>
+              <div class= "video p-5 " style= "background-size: cover; background-repeat: no-repeat;">
+                <%= cl_video_tag post.video.key, cloudinary_resource_type: 'raw', autoplay: false, loop: true, controls: true, autoplay: true, muted: true, transformation: [{ width:500, crop:"scale" }] %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+    <div class=" social-infos ">
+
+
+
+  <div class="chats mt-5">
+  <i class="chat-icon far fa-envelope"></i>
+
+    <ul class=" friend-list">
+        <% if @chatrooms.blank? %>
+            <li class="no-chat px-5 d-flex-column"><%= image_tag ("fantasma.png"), class: "my-5"%> <p class="mb-0 py-3">No Messages</p> </li>
+        <% end %>
+      <% @chatrooms.each do |chatroom| %>
+        <%= link_to chatroom_path(chatroom) do %>
+          <% if chatroom.user == current_user %>
+            <li class=" friend"><%= image_tag chatroom.user_two.avatar_thumbnail, class: "avatar" %><%= chatroom.user_two.username %></li>
+          <% else %>
+            <li class=" friend"><%= image_tag chatroom.user.avatar_thumbnail, class: "avatar" %><%= chatroom.user.username %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+
+    <div class="follows-list mt-5">
+
+      <div class="title-follow px-5"><h3><i class="fas fa-users"></i> following</h3></div>
+      <ul>
+        <% if @following.blank? %>
+            <li class="no-follows px-5 d-flex-column"><%= image_tag ("heart.png"), class: "my-5"%> <p class="mb-0 py-3"> no friends yet</p> </li>
+        <% end %>
+        <% @following.each do |follow| %>
+          <%= link_to user_path(follow.followed) do %>
+              <li class="follow-item"><i class="far fa-user px-2"></i> <%= follow.followed.username %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    </div>
+  </div>
+</div>

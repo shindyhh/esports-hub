@@ -1,0 +1,212 @@
+.feed-size{
+  width: 60%;
+}
+
+.card-feed{
+  background-color: #2b3438;
+  color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.padding-feed{
+  padding: 0 0;
+}
+.font-size-user{
+  font-size:20px;
+}
+.user-info{
+  align-self: flex-start;
+}
+
+.padding-border{
+  padding: 0px;
+  border-top: 1px solid #0ef6be;
+}
+
+.width-60{
+  width: 60%;
+}
+
+
+.chats{
+
+  .chat-icon{
+    color: #0ef6be;
+    position: relative;
+    top: 40px;
+    right: -9px;
+    font-size: 24px;
+  }
+
+  .no-chat{
+    background: rgb(18,177,139);
+background: radial-gradient(circle, rgba(18,177,139,1) 20%, #1e2528 50%, #1e2528 80%);
+    text-align: center;
+    color: rgba(247, 247, 247, 0.5);
+    font-size: 20px;
+    font-weight: 600;
+    img{
+      width: 140px;
+      height: 140px;
+
+    }
+  }
+}
+
+.friend-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 342px;
+  height: 100%;
+  background: #1e2528;
+  list-style-type: none;
+  margin: 0;
+  border-radius: 18px 0px 0px 18px;
+  padding-left: 40px;
+  border: solid 1px #0ef6be;
+}
+
+.friend {
+  width: 300px;
+  height: 60px;
+  background: #2B3438;
+  border-bottom: 1px solid #1e2528;
+  border-left: 1px solid #0ef6be;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.friend img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  border: 2px solid #AAA;
+  object-fit: cover;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.friend .name {
+  font-size: 18px;
+}
+
+// .friend.selected {
+//   background: #43A047;
+//   color: white;
+// }
+
+// .friend.selected img {
+//   border-color: #0ef6be;
+// }
+
+.friend:hover {
+  background: #2b3438;
+ img{
+  border-color: #0ef6be;
+  }
+}
+
+.follows-list{
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  padding: 0px;
+  border: solid 1px #0ef6be;
+  border-radius: 8px;
+  background: #2B3438;
+
+  .no-follows{
+    background: rgb(18,177,139);
+background: radial-gradient(circle, rgba(18,177,139,1) 20%, #1e2528 50%, #1e2528 80%);
+    text-align: center;
+    color: rgba(247, 247, 247, 0.5);
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    img{
+      width: 140px;
+      height: 140px;
+
+    }
+  }
+
+  .follow-item{
+    width: 300px;
+    height: 60px;
+    background: #2B3438;
+    border-bottom: 1px solid #1e2528;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 0px 0px 8px 8px;
+  }
+  .follow-item:hover{
+    color: #0ef6be;
+  }
+}
+  .title-follow{
+    background-color: #0ef6be;
+    border-radius: 8px 8px 0px 0px;
+    margin: 0 0;
+    text-align: center;
+    h3{
+      margin: 0 0;
+      color: #1e2528;
+      font-weight: 600;
+    }
+  }
+
+  .team-list{
+
+ a {
+ text-align: center;
+}
+
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    padding: 0px;
+    border: solid 1px #0ef6be;
+    border-radius: 8px;
+    background: #2B3438;
+
+    .team-item{
+      width: 300px;
+      height: 60px;
+      background: #2B3438;
+      border-bottom: 1px solid #1e2528;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: 0px 0px 8px 8px;
+    }
+    .team-item:hover{
+      color: #0ef6be;
+    }
+  }
+    .title-team{
+      background-color: #0ef6be;
+      border-radius: 8px 8px 0px 0px;
+      margin: 0 0;
+      text-align: center;
+      h3{
+        margin: 0 0;
+        color: #1e2528;
+        font-weight: 600;
+      }
+    }
+
+    .member-title{
+      color: #0ef6be;
+      font-size: 15px;
+      margin-top: 15px;
+      margin-bottom: 0px;
+      border-bottom: solid 1px #0ef6be;
+    }
